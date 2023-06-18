@@ -113,24 +113,7 @@ INSERT INTO ORDERS VALUES(
     10, 10, TO_DATE('2023-03-10', 'YYYY-MM-DD'), 199.98
 );
 
--- -- Create a trigger to update the total_price column in the Orders table
--- CREATE OR REPLACE TRIGGER UPDATE_TOTAL_PRICE AFTER
---     INSERT OR UPDATE OR DELETE ON ORDER_ITEMS FOR EACH ROW
--- DECLARE
---     V_TOTAL_PRICE NUMBER;
--- BEGIN
---  -- Calculate the total price for the order
---     SELECT SUM(QUANTITY * UNIT_PRICE) INTO V_TOTAL_PRICE
---     FROM ORDER_ITEMS
---     WHERE ORDER_ID = :NEW.ORDER_ID;
---  -- Update the total_price column in the Orders table
---     UPDATE ORDERS
---     SET
---         TOTAL_PRICE = V_TOTAL_PRICE
---     WHERE
---         ORDER_ID = :NEW.ORDER_ID;
--- END;
--- /
+
 
 -- Insert data into the Order_Items table
 INSERT INTO ORDER_ITEMS VALUES (
@@ -434,7 +417,8 @@ WHERE (O1.ORDER_ID = O2.ORDER_ID
 -- finding the products bought by a customer.
 SELECT PRODUCT_NAME
 FROM PRODUCTS P
-    JOIN ORDER_ITEMS OI ON P.PRODUCT_ID = OI.PRODUCT_ID JOIN ORDERS O ON OI.ORDER_ID = O.ORDER_ID
+    JOIN ORDER_ITEMS OI ON P.PRODUCT_ID = OI.PRODUCT_ID
+    JOIN ORDERS O ON OI.ORDER_ID = O.ORDER_ID
 WHERE O.CUSTOMER_ID=2;
 
 -- left outer join
